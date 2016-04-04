@@ -48,18 +48,7 @@ public class UserAuthorization {
     private String inputNumber() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String text = reader.readLine();
-        String pattern = "[0-9]+";
-        return formatTxt(pattern, text);
-    }
-
-    private String formatTxt (String pattern, String text){
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(text);
-        String result = "";
-        while (m.find()) {
-            result += text.substring(m.start(), m.end());
-        }
-        return result;
+        return text.replaceAll("[^0-9]+", "");
     }
 
 }
