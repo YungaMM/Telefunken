@@ -6,12 +6,12 @@ import org.javagram.response.object.User;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserAuthorization {
     private AuthAuthorization authorization;
     private User user;
+
+    private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
     public boolean userAuthorization(TelegramApiBridge bridge) throws IOException {
         System.out.println("Please, type phone number");
@@ -46,8 +46,7 @@ public class UserAuthorization {
     }
 
     private String inputNumber() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String text = reader.readLine();
+        String text = bufferedReader.readLine();
         return text.replaceAll("[^0-9]+", "");
     }
 
