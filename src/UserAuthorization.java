@@ -53,7 +53,8 @@ public class UserAuthorization {
         TLContact contact = new TLContact();
         for (int i = 0; i < tlVector.size(); i++) {
             contact = tlVector.get(i);
-//            System.out.println("Name: " + "    " + tlVector);
+//            contact.?
+//            System.out.println("Name: " + contact.?);
         }
     }
 
