@@ -2,16 +2,10 @@ import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.object.User;
-import org.telegram.api.TLContact;
-import org.telegram.api.contacts.TLAbsContacts;
-import org.telegram.api.contacts.TLContacts;
-import org.telegram.api.contacts.TLContactsNotModified;
-import org.telegram.tl.TLVector;
-
+import org.javagram.response.object.UserContact;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.Collator;
 import java.util.ArrayList;
 
 public class UserAuthorization {
@@ -20,24 +14,24 @@ public class UserAuthorization {
 
     private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    public boolean userAuthorization(TelegramApiBridge bridge) throws IOException {
+    public boolean userAuthorization(TelegramApiBridge apiBridge) throws IOException {
         System.out.println("Please, type phone number");
         String userPhone = inputNumber();
 
-        AuthCheckedPhone checkedPhone = bridge.authCheckPhone(userPhone);
+        AuthCheckedPhone checkedPhone = apiBridge.authCheckPhone(userPhone);
         if (checkedPhone.isRegistered()) {
-            bridge.authSendCode(userPhone);
+            apiBridge.authSendCode(userPhone);
 
             System.out.println("Please, type SMS code");
             String smsCode = inputNumber();
 
-            authorization = bridge.authSignIn(smsCode);
+            authorization = apiBridge.authSignIn(smsCode);
             user = authorization.getUser();
             System.out.println("FirstName: " + user.getFirstName());
             System.out.println("LastName: " + user.getLastName());
             System.out.println("UserPhone: " + user.getPhone());
 
-            printAllContact();
+            printAllContact(apiBridge);
 
             return true;
         }
@@ -47,14 +41,12 @@ public class UserAuthorization {
         }
     }
 
-    private void printAllContact() {
-        TLContacts contacts = new TLContacts();
-        TLVector<TLContact> tlVector = contacts.getContacts();
-        TLContact contact = new TLContact();
-        for (int i = 0; i < tlVector.size(); i++) {
-            contact = tlVector.get(i);
-//            contact.?
-//            System.out.println("Name: " + contact.?);
+    private void printAllContact(TelegramApiBridge apiBridge) throws IOException {
+        ArrayList<UserContact> userContacts = apiBridge.contactsGetContacts();
+        for (UserContact contactInfo:userContacts){
+            System.out.println("Фамилия: " + contactInfo.getFirstName());
+            System.out.println("Имя: " + contactInfo.getLastName());
+            System.out.println("Номер телефона: " + contactInfo.getPhone());
         }
     }
 
