@@ -5,6 +5,8 @@ import org.javagram.response.AuthAuthorization;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.object.User;
 import org.javagram.response.object.UserContact;
+import view.RegistrationFrame;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
