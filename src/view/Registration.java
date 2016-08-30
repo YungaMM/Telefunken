@@ -14,8 +14,23 @@ public class Registration extends JPanel{
         completeBtn.addActionListener(listener);
     }
 
+    public String getFirstName() {
+        return firstNameField.getText();
+    }
+
+    public void setFirstNameField(String text) {
+        firstNameField.setText(text);
+    }
+
+    public String getLastName() {
+        return lastNameField.getText();
+    }
+
+    public void setLastNameField(String text) {
+        lastNameField.setText(text);
+    }
+
     private void createUIComponents() {
-    // TODO: place custom component creation code here
         rootPanel = this;
     }
 }

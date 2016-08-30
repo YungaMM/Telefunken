@@ -14,7 +14,6 @@ public class EnterConfirmationCode extends JPanel{
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         rootPanel = this;
     }
 
@@ -22,8 +21,8 @@ public class EnterConfirmationCode extends JPanel{
         this.phoneLabel.setText(phoneLabel);
     }
 
-    public char[] getCodeField() {
-        return codeField.getPassword();
+    public String getCode() {
+        return String.valueOf(codeField.getPassword());
     }
 
     public void transferFocusToCode() {

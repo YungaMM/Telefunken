@@ -58,7 +58,7 @@
           <gridbag weightx="1.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Продолжить"/>
+          <text value="Ок"/>
         </properties>
       </component>
       <hspacer id="29ee3">

@@ -5,13 +5,20 @@ import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-public class EnterPhone extends JPanel{
+
+public class EnterPhone extends JPanel {
     private JPanel rootPanel;
     private JButton continueBtn;
     private JFormattedTextField phone;
 
-    public String getPhone(){
-        return (String) phone.getValue();
+    public String getPhone() {
+        try {
+            phone.commitEdit();
+            return (String) phone.getValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void addListenerForChangeForm(ActionListener listener) {
@@ -19,18 +26,15 @@ public class EnterPhone extends JPanel{
     }
 
     public void transferFocusToPhone() {
+        phone.setText("");
         phone.requestFocusInWindow();
     }
 
-    public String getFormattedPhone(){
-        return getPhone().replaceAll("[^0-9]+", "");
-    }
-
     private void createUIComponents() throws ParseException {
-        // TODO: place custom component creation code here
         rootPanel = this;
 
         MaskFormatter mask = new MaskFormatter("+7 (###) ###-##-##");
         phone = new JFormattedTextField(mask);
+        phone.setFocusLostBehavior(JFormattedTextField.PERSIST);
     }
 }

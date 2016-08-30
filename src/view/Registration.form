@@ -13,7 +13,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Завершить"/>
+          <text value="Ок"/>
         </properties>
       </component>
       <vspacer id="925d0">
