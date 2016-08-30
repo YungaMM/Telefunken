@@ -1,4 +1,4 @@
-package view;
+package view.contactsList;
 
 import org.javagram.response.object.UserContact;
 import javax.swing.*;

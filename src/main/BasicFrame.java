@@ -4,7 +4,7 @@ import org.javagram.TelegramApiBridge;
 import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.object.User;
 import org.javagram.response.object.UserContact;
-import view.ContactsList;
+import view.contactsList.ContactsList;
 import view.EnterConfirmationCode;
 import view.EnterPhone;
 import view.Registration;
