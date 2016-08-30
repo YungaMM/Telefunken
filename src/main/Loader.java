@@ -1,9 +1,6 @@
 package main;
 
 import org.javagram.TelegramApiBridge;
-import view.ContactsList;
-import view.MyFrame;
-import view.RegistrationFrame;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -13,41 +10,42 @@ import java.io.IOException;
 public class Loader {
 
     public static void main(String[] args) throws IOException {
-        MyFrame myFrame = new MyFrame();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                startRegistration();
+            }
+        });
+    }
 
-        myFrame.setLocationRelativeTo(null);
-        myFrame.addWindowListener(new WindowAdapter() {
+    private static void startRegistration() {
+        TelegramApiBridge apiBridge;
+        do {
+            apiBridge = getApiBridge();
+            if (apiBridge != null) {
+                runBasicFrame(apiBridge);
+            } else if (!dialogConnectServer()) {
+                System.exit(0);
+            }
+        } while (apiBridge == null);
+    }
+
+    private static void runBasicFrame(TelegramApiBridge apiBridge) {
+        BasicFrame basicFrame = new BasicFrame(apiBridge);
+
+        basicFrame.setLocationRelativeTo(null);
+        basicFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
                 System.exit(0);
             }
         });
-        myFrame.setVisible(true);
-
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                runRegistration();
-//            }
-//        });
-    }
-
-    private static void runRegistration() {
-        TelegramApiBridge apiBridge;
-        do {
-            apiBridge = getApiBridge();
-            if (apiBridge != null) {
-                RegistrationFrame registrationFrame = new RegistrationFrame(apiBridge);
-                registrationFrame.setVisible(true);
-            } else if (!dialogConnectServer()){
-                System.exit(0);
-            }
-        } while (apiBridge == null);
+        basicFrame.setVisible(true);
     }
 
     private static TelegramApiBridge getApiBridge() {
