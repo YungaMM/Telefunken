@@ -52,13 +52,13 @@
           <text value="Пожайлуста, введите этот код в поле ниже:"/>
         </properties>
       </component>
-      <component id="219bd" class="javax.swing.JButton" binding="continueBtn">
+      <component id="219bd" class="javax.swing.JButton" binding="okBtn">
         <constraints>
           <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="1.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Ок"/>
+          <text value="Ok"/>
         </properties>
       </component>
       <hspacer id="29ee3">

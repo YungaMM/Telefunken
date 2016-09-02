@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 
 public class Registration extends JPanel{
     private JPanel rootPanel;
-    private JButton completeBtn;
+    private JButton okBtn;
     private JTextField firstNameField;
     private JTextField lastNameField;
 
     public void addListenerForChangeForm(ActionListener listener) {
-        completeBtn.addActionListener(listener);
+        okBtn.addActionListener(listener);
     }
 
     public String getFirstName() {
@@ -28,6 +28,10 @@ public class Registration extends JPanel{
 
     public void setLastNameField(String text) {
         lastNameField.setText(text);
+    }
+
+    public void transferFocusToFirstName() {
+        firstNameField.requestFocusInWindow();
     }
 
     private void createUIComponents() {

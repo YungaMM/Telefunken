@@ -11,58 +11,28 @@ import java.io.IOException;
 public class Loader {
 
     public static void main(String[] args) throws IOException {
-        runBasicFrame(null);
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                startRegistration();
-//            }
-//        });
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                startRegistration();
+            }
+        });
     }
 
     private static void startRegistration() {
         TelegramApiBridge apiBridge;
-        do {
-            apiBridge = getApiBridge();
-            if (apiBridge != null) {
-                runBasicFrame(apiBridge);
-            } else if (!dialogConnectServer()) {
-                System.exit(0);
-            }
-        } while (apiBridge == null);
+        apiBridge = getApiBridge();
+        if (apiBridge != null) {
+            BasicFrame basicFrame = new BasicFrame(apiBridge);
+            basicFrame.setLocationRelativeTo(null);
+            basicFrame.setVisible(true);
+        }
     }
-
-    private static void runBasicFrame(TelegramApiBridge apiBridge) {
-        BasicFrame basicFrame = new BasicFrame(apiBridge);
-
-        basicFrame.setLocationRelativeTo(null);
-//        basicFrame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosed(WindowEvent windowEvent) {
-//                System.exit(0);
-//            }
-//        });
-        basicFrame.setVisible(true);
-    }
-
-//    private static void runBasicDialog() {
-//        BasicDialog dialog = new BasicDialog();
-//
-//        dialog.showConfirmDialog("sfasf", "safasf",BasicDialog.DEFAULT_OPTION);
-//        dialog.setLocationRelativeTo(null);
-//        basicFrame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosed(WindowEvent windowEvent) {
-//                System.exit(0);
-//            }
-//        });
-//        dialog.setVisible(true);
-//    }
 
     private static TelegramApiBridge getApiBridge() {
         try {
@@ -73,18 +43,6 @@ public class Loader {
             return null;
         }
     }
-
-    private static boolean dialogConnectServer() {
-        int option = JOptionPane.showConfirmDialog(
-                null,
-                "Повторить подключение к серверу?",
-                "Ошибка подключения к серверу Telegram",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-        return option == JOptionPane.YES_OPTION;
-    }
-
 }
 
 

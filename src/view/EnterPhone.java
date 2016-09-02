@@ -9,21 +9,23 @@ import java.text.ParseException;
 
 public class EnterPhone extends JPanel {
     private JPanel rootPanel;
-    private JButton continueBtn;
+    private JButton okBtn;
     private JFormattedTextField phone;
 
     public String getPhone() {
-        try {
-            phone.commitEdit();
-            return (String) phone.getValue();
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+        if(phone.getValue() != null) {
+            try {
+                phone.commitEdit();
+                return (String) phone.getValue();
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else return null;
     }
 
     public void addListenerForChangeForm(ActionListener listener) {
-        continueBtn.addActionListener(listener);
+        okBtn.addActionListener(listener);
     }
 
     public void addListenerForPhoneField(KeyAdapter listener) {
