@@ -1,11 +1,8 @@
 package main;
 
 import org.javagram.TelegramApiBridge;
-import view.dialogs.BasicDialog;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class Loader {
@@ -31,6 +28,7 @@ public class Loader {
             BasicFrame basicFrame = new BasicFrame(apiBridge);
             basicFrame.setLocationRelativeTo(null);
             basicFrame.setVisible(true);
+            basicFrame.showStartPanel();
         }
     }
 

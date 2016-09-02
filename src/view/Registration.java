@@ -34,6 +34,9 @@ public class Registration extends JPanel{
         firstNameField.requestFocusInWindow();
     }
 
+    public void transferFocusToLastName() {
+        lastNameField.requestFocusInWindow();
+    }
     private void createUIComponents() {
         rootPanel = this;
     }

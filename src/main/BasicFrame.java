@@ -37,55 +37,14 @@ public class BasicFrame extends JFrame {
         setSize(800, 600);
         undecoratedFrame = new DecorationForFrame(
                 this, ComponentResizerAbstract.KEEP_RATIO_CENTER);
-        undecoratedFrame.setContentPanel(enterPhonePanel);
         undecoratedFrame.setTitle(FRAME_TITLE);
-        setListeners();
-        closeWindow();
-        enterPhonePanel.transferFocusToPhone();
-    }
-
-    private void setListeners() {
-        enterPhonePanel.addListenerForChangeForm(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchPhoneToCode();
-            }
-        });
-        enterPhonePanel.addListenerForPhoneField(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) switchPhoneToCode();
-            }
-        });
-
-        confirmCodePanel.addListenerForChangeForm(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchCodeToContactList();
-            }
-        });
-        confirmCodePanel.addListenerForCodeField(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) switchCodeToContactList();
-            }
-        });
-
-        registrationPanel.addListenerForChangeForm(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchRegistrationToCode();
-            }
-        });
-
         undecoratedFrame.addActionListenerForMinimize(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 BasicFrame.this.setState(ICONIFIED);
             }
         });
+        initCloseWindowListener();
     }
 
     private void close() {
@@ -98,7 +57,7 @@ public class BasicFrame extends JFrame {
         System.exit(0);
     }
 
-    private void closeWindow() {
+    private void initCloseWindowListener() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         undecoratedFrame.addActionListenerForClose(new ActionListener() {
             @Override
@@ -115,20 +74,56 @@ public class BasicFrame extends JFrame {
         });
     }
 
-    //***********************************************************************
-    private void openRegistration() {
+    public void showStartPanel() {
+        enterPhonePanel.addListenerForChangeForm(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPhoneToCode();
+            }
+        });
+        enterPhonePanel.addListenerForPhoneField(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) switchPhoneToCode();
+            }
+        });
+        undecoratedFrame.setContentPanel(enterPhonePanel);
+        enterPhonePanel.transferFocusToPhone();
+    }
+
+    private void showRegistration() {
+        registrationPanel.addListenerForChangeForm(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchRegistrationToCode();
+            }
+        });
         undecoratedFrame.setContentPanel(registrationPanel);
         registrationPanel.transferFocusToFirstName();
     }
 
-    private void openConfirmCodePanel(String phone) {
+    private void showConfirmCodePanel(String phone) {
+        confirmCodePanel.addListenerForChangeForm(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchCodeToContactList();
+            }
+        });
+        confirmCodePanel.addListenerForCodeField(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) switchCodeToContactList();
+            }
+        });
         confirmCodePanel.setPhoneLabel(phone);
         undecoratedFrame.setContentPanel(confirmCodePanel);
         confirmCodePanel.transferFocusToCode();
         sendCode(phone);
     }
 
-    private void openContactList() throws IOException {
+    private void showContactList() throws IOException {
         ArrayList<UserContact> userContacts = apiBridge.contactsGetContacts();
         ContactsList contactsList = new ContactsList(userContacts);
         undecoratedFrame.setContentPanel(contactsList);
@@ -145,11 +140,11 @@ public class BasicFrame extends JFrame {
                 AuthCheckedPhone checkedPhone = apiBridge.authCheckPhone(phone);
                 if (checkedPhone.isRegistered()) {
                     userRegistered = true;
-                    openConfirmCodePanel(phone);
+                    showConfirmCodePanel(phone);
                 } else {
                     if (dialogSignUp(phone)) {
                         userRegistered = false;
-                        openRegistration();
+                        showRegistration();
                     } else {
                         enterPhonePanel.transferFocusToPhone();
                     }
@@ -168,10 +163,11 @@ public class BasicFrame extends JFrame {
         String phone = enterPhonePanel.getPhone();
 
         if (!firstName.equals("") && !lastName.equals("")) {
-            openConfirmCodePanel(phone);
+            showConfirmCodePanel(phone);
         } else {
             showErrorMessage(EMPTY_FIELD);
-            registrationPanel.transferFocusToFirstName();
+            if (firstName.equals("")) registrationPanel.transferFocusToFirstName();
+            else registrationPanel.transferFocusToLastName();
         }
     }
 
@@ -185,24 +181,11 @@ public class BasicFrame extends JFrame {
                 String lastName = registrationPanel.getLastName();
                 user = apiBridge.authSignUp(smsCode, firstName, lastName).getUser();
             }
-            openContactList();
+            showContactList();
         } catch (IOException e) {
             e.printStackTrace();
             showErrorMessage(textError(e));
             confirmCodePanel.transferFocusToCode();
-        }
-    }
-
-    private void endOfRegistration() {
-        String smsCode = String.valueOf(confirmCodePanel.getCode());
-        String firstName = registrationPanel.getFirstName();
-        String lastName = registrationPanel.getLastName();
-        try {
-            user = apiBridge.authSignUp(smsCode, firstName, lastName).getUser();
-            openContactList();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showErrorMessage(textError(e));
         }
     }
 
