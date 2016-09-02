@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 
 public class EnterConfirmationCode extends JPanel{
     private JPanel rootPanel;
@@ -11,6 +12,10 @@ public class EnterConfirmationCode extends JPanel{
 
     public void addListenerForChangeForm(ActionListener listener) {
         continueBtn.addActionListener(listener);
+    }
+
+    public void addListenerForCodeField(KeyAdapter listener) {
+        codeField.addKeyListener(listener);
     }
 
     private void createUIComponents() {

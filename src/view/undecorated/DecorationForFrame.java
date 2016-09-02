@@ -4,15 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-/**
- * Created by HerrSergio on 24.05.2016.
- */
 public class DecorationForFrame extends JPanel {
     private JPanel rootPanel;
     private JPanel topPanel;
     private JPanel contentPanel;
     private JButton closeButton;
     private JButton minimizeButton;
+    private JLabel title;
 
     private ComponentMover componentMover;
     private ComponentResizerAbstract componentResizerExtended;
@@ -53,6 +51,14 @@ public class DecorationForFrame extends JPanel {
         contentPanel.add(component);
         contentPanel.revalidate();
         contentPanel.repaint();
+    }
+
+    public void setTitle(String title){
+        this.title.setText(title);
+    }
+
+    public JButton getMinimizeButton() {
+        return minimizeButton;
     }
 
     private void createUIComponents() {

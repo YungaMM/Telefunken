@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class ContactsList extends JPanel{
     private JPanel rootPanel;
-    private JButton buttonOk;
-    private JButton buttonCancel;
     private JScrollPane scrollPane;
     private JList contactList;
-    private JButton buttonDelete;
+    private JPanel buttonPanel;
+    private JButton buttonOk;
+    private JButton buttonCancel;
 
     private DefaultListModel listModel;
 

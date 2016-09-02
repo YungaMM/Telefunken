@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.text.ParseException;
 
 
@@ -23,6 +24,10 @@ public class EnterPhone extends JPanel {
 
     public void addListenerForChangeForm(ActionListener listener) {
         continueBtn.addActionListener(listener);
+    }
+
+    public void addListenerForPhoneField(KeyAdapter listener) {
+        phone.addKeyListener(listener);
     }
 
     public void transferFocusToPhone() {

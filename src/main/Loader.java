@@ -1,6 +1,7 @@
 package main;
 
 import org.javagram.TelegramApiBridge;
+import view.dialogs.BasicDialog;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -10,17 +11,18 @@ import java.io.IOException;
 public class Loader {
 
     public static void main(String[] args) throws IOException {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                startRegistration();
-            }
-        });
+        runBasicFrame(null);
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                startRegistration();
+//            }
+//        });
     }
 
     private static void startRegistration() {
@@ -39,14 +41,28 @@ public class Loader {
         BasicFrame basicFrame = new BasicFrame(apiBridge);
 
         basicFrame.setLocationRelativeTo(null);
-        basicFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                System.exit(0);
-            }
-        });
+//        basicFrame.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosed(WindowEvent windowEvent) {
+//                System.exit(0);
+//            }
+//        });
         basicFrame.setVisible(true);
     }
+
+//    private static void runBasicDialog() {
+//        BasicDialog dialog = new BasicDialog();
+//
+//        dialog.showConfirmDialog("sfasf", "safasf",BasicDialog.DEFAULT_OPTION);
+//        dialog.setLocationRelativeTo(null);
+//        basicFrame.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosed(WindowEvent windowEvent) {
+//                System.exit(0);
+//            }
+//        });
+//        dialog.setVisible(true);
+//    }
 
     private static TelegramApiBridge getApiBridge() {
         try {

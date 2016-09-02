@@ -8,19 +8,18 @@ import view.contactsList.ContactsList;
 import view.EnterConfirmationCode;
 import view.EnterPhone;
 import view.Registration;
+import view.dialogs.BasicDialog;
 import view.undecorated.ComponentResizerAbstract;
 import view.undecorated.DecorationForFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class BasicFrame extends JFrame {
+    private static final String FRAME_TITLE = "Telefunken";
     private static final String PHONE_NUMBER_INVALID = "Неверно введен номер телефона!";
 
     private TelegramApiBridge apiBridge;
@@ -33,29 +32,28 @@ public class BasicFrame extends JFrame {
     private EnterConfirmationCode confirmCodePanel = new EnterConfirmationCode();
     private Registration registrationPanel = new Registration();
 
-    {
-        setSize(800, 600);
-        undecoratedFrame.setContentPanel(enterPhonePanel);
-        setListeners();
-        closeWindow();
-    }
-
     public BasicFrame(TelegramApiBridge apiBridge) throws HeadlessException {
         this.apiBridge = apiBridge;
+        setSize(800, 600);
+        undecoratedFrame.setContentPanel(enterPhonePanel);
+        undecoratedFrame.setTitle(FRAME_TITLE);
+        setListeners();
+        closeWindow();
+        enterPhonePanel.transferFocusToPhone();
     }
 
     private void setListeners() {
-        undecoratedFrame.addActionListenerForMinimize(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BasicFrame.this.setState(ICONIFIED);
-            }
-        });
-
         enterPhonePanel.addListenerForChangeForm(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchPhoneToCode();
+            }
+        });
+        enterPhonePanel.addListenerForPhoneField(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode()==KeyEvent.VK_ENTER) switchPhoneToCode();
             }
         });
 
@@ -65,11 +63,25 @@ public class BasicFrame extends JFrame {
                 switchCodeToRegistration();
             }
         });
+        confirmCodePanel.addListenerForCodeField(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode()==KeyEvent.VK_ENTER) switchCodeToRegistration();
+            }
+        });
 
         registrationPanel.addListenerForChangeForm(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 endOfRegistration();
+            }
+        });
+
+        undecoratedFrame.addActionListenerForMinimize(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BasicFrame.this.setState(ICONIFIED);
             }
         });
     }
@@ -200,24 +212,19 @@ public class BasicFrame extends JFrame {
         return dialogText;
     }
 
-    private void showErrorMessage(String text) {
-        JOptionPane.showMessageDialog(
-                this.getContentPane(),
-                text,
-                "Внимание!",
-                JOptionPane.ERROR_MESSAGE);
+    private void showErrorMessage(String message) {
+        BasicDialog.showMessageDialog(this, "Внимание", message);
     }
 
     private boolean dialogSignUp(String phone) {
-        String text = phone + " не зарегестрирован!\n" +
+        String message = phone + " не зарегестрирован!\n" +
                 "Для продолжения работы необходимо пройти регистрацию!";
-        int option = JOptionPane.showConfirmDialog(
-                this.getContentPane(),
-                text,
+        int option = BasicDialog.showConfirmDialog(
+                this,
                 "Телефонный номер не зарегестрирован!",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
+                message,
+                BasicDialog.YES_NO_OPTION
         );
-        return option == JOptionPane.YES_OPTION;
+        return option == BasicDialog.YES_OPTION;
     }
 }
