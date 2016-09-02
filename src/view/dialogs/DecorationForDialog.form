@@ -21,6 +21,10 @@
             <properties>
               <font size="20"/>
               <horizontalAlignment value="0"/>
+              <maximumSize width="450" height="27"/>
+              <minimumSize width="450" height="27"/>
+              <opaque value="false"/>
+              <preferredSize width="450" height="27"/>
               <text value="Label"/>
             </properties>
           </component>

@@ -13,15 +13,13 @@ public class EnterPhone extends JPanel {
     private JFormattedTextField phone;
 
     public String getPhone() {
-        if(phone.getValue() != null) {
-            try {
-                phone.commitEdit();
-                return (String) phone.getValue();
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else return null;
+        try {
+            phone.commitEdit();
+            return (String) phone.getValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void addListenerForChangeForm(ActionListener listener) {
