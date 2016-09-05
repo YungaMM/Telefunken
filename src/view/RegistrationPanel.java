@@ -3,8 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-
-public class Registration extends JPanel{
+public class RegistrationPanel extends JPanel{
     private JPanel rootPanel;
     private JButton okBtn;
     private JTextField firstNameField;

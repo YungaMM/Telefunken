@@ -5,10 +5,11 @@ import org.javagram.response.AuthCheckedPhone;
 import org.javagram.response.object.User;
 import org.javagram.response.object.UserContact;
 import view.contactsList.ContactsList;
-import view.EnterConfirmationCode;
-import view.EnterPhone;
-import view.Registration;
-import view.dialogs.BasicDialog;
+import view.EnterConfirmCodePanel;
+import view.EnterPhonePanel;
+import view.RegistrationPanel;
+import view.dialogs.ConfirmDialogPanel;
+import view.dialogs.ErrorMessagePanel;
 import view.undecorated.ComponentResizerAbstract;
 import view.undecorated.DecorationForFrame;
 
@@ -28,9 +29,9 @@ public class BasicFrame extends JFrame {
     private boolean userRegistered;
 
     private DecorationForFrame undecoratedFrame;
-    private EnterPhone enterPhonePanel = new EnterPhone();
-    private EnterConfirmationCode confirmCodePanel = new EnterConfirmationCode();
-    private Registration registrationPanel = new Registration();
+    private EnterPhonePanel enterPhonePanelPanel = new EnterPhonePanel();
+    private EnterConfirmCodePanel confirmCodePanel = new EnterConfirmCodePanel();
+    private RegistrationPanel registrationPanelPanel = new RegistrationPanel();
 
     public BasicFrame(TelegramApiBridge apiBridge) throws HeadlessException {
         this.apiBridge = apiBridge;
@@ -44,6 +45,7 @@ public class BasicFrame extends JFrame {
                 BasicFrame.this.setState(ICONIFIED);
             }
         });
+
         initCloseWindowListener();
     }
 
@@ -75,32 +77,32 @@ public class BasicFrame extends JFrame {
     }
 
     public void showStartPanel() {
-        enterPhonePanel.addListenerForChangeForm(new ActionListener() {
+        enterPhonePanelPanel.addListenerForChangeForm(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchPhoneToCode();
             }
         });
-        enterPhonePanel.addListenerForPhoneField(new KeyAdapter() {
+        enterPhonePanelPanel.addListenerForPhoneField(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) switchPhoneToCode();
             }
         });
-        undecoratedFrame.setContentPanel(enterPhonePanel);
-        enterPhonePanel.transferFocusToPhone();
+        undecoratedFrame.setContentPanel(enterPhonePanelPanel);
+        enterPhonePanelPanel.transferFocusToPhone();
     }
 
     private void showRegistration() {
-        registrationPanel.addListenerForChangeForm(new ActionListener() {
+        registrationPanelPanel.addListenerForChangeForm(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchRegistrationToCode();
             }
         });
-        undecoratedFrame.setContentPanel(registrationPanel);
-        registrationPanel.transferFocusToFirstName();
+        undecoratedFrame.setContentPanel(registrationPanelPanel);
+        registrationPanelPanel.transferFocusToFirstName();
     }
 
     private void showConfirmCodePanel(String phone) {
@@ -130,11 +132,11 @@ public class BasicFrame extends JFrame {
     }
 
     private void switchPhoneToCode() {
-        String phone = enterPhonePanel.getPhone();
+        String phone = enterPhonePanelPanel.getPhone();
 
         if (phone == null) {
             showErrorMessage(PHONE_NUMBER_INVALID);
-            enterPhonePanel.transferFocusToPhone();
+            enterPhonePanelPanel.transferFocusToPhone();
         } else {
             try {
                 AuthCheckedPhone checkedPhone = apiBridge.authCheckPhone(phone);
@@ -142,32 +144,32 @@ public class BasicFrame extends JFrame {
                     userRegistered = true;
                     showConfirmCodePanel(phone);
                 } else {
-                    if (dialogSignUp(phone)) {
+                    if (showDialogSignUp(phone)) {
                         userRegistered = false;
                         showRegistration();
                     } else {
-                        enterPhonePanel.transferFocusToPhone();
+                        enterPhonePanelPanel.transferFocusToPhone();
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
                 showErrorMessage(textError(e));
-                enterPhonePanel.transferFocusToPhone();
+                enterPhonePanelPanel.transferFocusToPhone();
             }
         }
     }
 
     private void switchRegistrationToCode() {
-        String firstName = registrationPanel.getFirstName();
-        String lastName = registrationPanel.getLastName();
-        String phone = enterPhonePanel.getPhone();
+        String firstName = registrationPanelPanel.getFirstName();
+        String lastName = registrationPanelPanel.getLastName();
+        String phone = enterPhonePanelPanel.getPhone();
 
         if (!firstName.equals("") && !lastName.equals("")) {
             showConfirmCodePanel(phone);
         } else {
             showErrorMessage(EMPTY_FIELD);
-            if (firstName.equals("")) registrationPanel.transferFocusToFirstName();
-            else registrationPanel.transferFocusToLastName();
+            if (firstName.equals("")) registrationPanelPanel.transferFocusToFirstName();
+            else registrationPanelPanel.transferFocusToLastName();
         }
     }
 
@@ -177,8 +179,8 @@ public class BasicFrame extends JFrame {
             if (userRegistered) {
                 user = apiBridge.authSignIn(smsCode).getUser();
             } else {
-                String firstName = registrationPanel.getFirstName();
-                String lastName = registrationPanel.getLastName();
+                String firstName = registrationPanelPanel.getFirstName();
+                String lastName = registrationPanelPanel.getLastName();
                 user = apiBridge.authSignUp(smsCode, firstName, lastName).getUser();
             }
             showContactList();
@@ -223,18 +225,67 @@ public class BasicFrame extends JFrame {
     }
 
     private void showErrorMessage(String message) {
-        BasicDialog.showMessageDialog(this, "Внимание", message);
+        JDialog dialog = new JDialog(this, true);
+
+        DecorationForFrame dialogFrame = new DecorationForFrame(
+                dialog, ComponentResizerAbstract.KEEP_RATIO_CENTER);
+        dialogFrame.setTitle("Внимание!");
+
+        ErrorMessagePanel dialogPanel = new ErrorMessagePanel(message);
+        dialogPanel.addActionListenerForOk(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose();
+            }
+        });
+
+        showDialog(dialog, dialogFrame, dialogPanel);
     }
 
-    private boolean dialogSignUp(String phone) {
-        String message = phone + " не зарегестрирован!\n" +
-                "Для продолжения работы необходимо пройти регистрацию!";
-        int option = BasicDialog.showConfirmDialog(
-                this,
-                "Телефонный номер не зарегестрирован!",
-                message,
-                BasicDialog.YES_NO_OPTION
-        );
-        return option == BasicDialog.YES_OPTION;
+    private boolean showDialogSignUp(String phone) {
+        final boolean[] result = {false};
+
+        String message = "<HTML>" + phone + " не зарегестрирован! " +
+                "Для продолжения работы необходимо пройти регистрацию!</HTML>";
+
+        JDialog dialog = new JDialog(this, true);
+
+        DecorationForFrame dialogFrame = new DecorationForFrame(
+                dialog, ComponentResizerAbstract.KEEP_RATIO_CENTER);
+        dialogFrame.setTitle("Телефонный номер не зарегестрирован!");
+
+        ConfirmDialogPanel dialogPanel = new ConfirmDialogPanel(message);
+        dialogPanel.addActionListenerForYes(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                result[0] = true;
+                dialog.dispose();
+            }
+        });
+        dialogPanel.addActionListenerForNo(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                result[0] = false;
+                dialog.dispose();
+            }
+        });
+        showDialog(dialog, dialogFrame, dialogPanel);
+
+        return result[0];
+    }
+
+    private void showDialog(JDialog dialog, DecorationForFrame dialogFrame, JPanel dialogPanel) {
+        dialogFrame.setContentPanel(dialogPanel);
+        dialogFrame.getMinimizeButton().setVisible(false);
+        dialogFrame.addActionListenerForClose(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose();
+            }
+        });
+        dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dialog.setSize(500, 200);
+        dialog.setLocationRelativeTo(undecoratedFrame);
+        dialog.setVisible(true);
     }
 }

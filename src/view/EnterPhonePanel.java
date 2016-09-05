@@ -7,7 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.text.ParseException;
 
 
-public class EnterPhone extends JPanel {
+public class EnterPhonePanel extends JPanel {
     private JPanel rootPanel;
     private JButton okBtn;
     private JFormattedTextField phone;

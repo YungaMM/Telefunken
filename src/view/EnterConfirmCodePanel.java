@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 
-public class EnterConfirmationCode extends JPanel{
+public class EnterConfirmCodePanel extends JPanel{
     private JPanel rootPanel;
     private JLabel phoneLabel;
     private JButton okBtn;
