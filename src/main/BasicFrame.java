@@ -284,7 +284,7 @@ public class BasicFrame extends JFrame {
             }
         });
         dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        dialog.setSize(500, 200);
+        dialog.setSize(500, 250);
         dialog.setLocationRelativeTo(undecoratedFrame);
         dialog.setVisible(true);
     }

@@ -14,7 +14,7 @@
         <constraints border-constraint="Center"/>
         <properties>
           <autoscrolls value="true"/>
-          <minimumSize width="500" height="200"/>
+          <minimumSize width="500" height="150"/>
           <preferredSize width="500" height="150"/>
         </properties>
         <border type="none"/>
@@ -28,8 +28,8 @@
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
               <maximumSize width="490" height="130"/>
-              <minimumSize width="490" height="130"/>
-              <preferredSize width="490" height="130"/>
+              <minimumSize width="490" height="140"/>
+              <preferredSize width="490" height="140"/>
               <text value="Label"/>
             </properties>
           </component>
@@ -37,7 +37,10 @@
       </grid>
       <grid id="45fd4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints border-constraint="South"/>
-        <properties/>
+        <properties>
+          <minimumSize width="500" height="60"/>
+          <preferredSize width="500" height="60"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="6177f" class="javax.swing.JButton" binding="yesButton" default-binding="true">

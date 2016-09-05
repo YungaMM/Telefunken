@@ -10,8 +10,8 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="96747" layout-manager="FlowLayout" hgap="25" vgap="20" flow-align="1">
-        <constraints border-constraint="North"/>
+      <grid id="96747" layout-manager="FlowLayout" hgap="0" vgap="40" flow-align="1">
+        <constraints border-constraint="Center"/>
         <properties>
           <minimumSize width="500" height="90"/>
           <preferredSize width="500" height="90"/>
@@ -21,7 +21,7 @@
           <component id="20a93" class="javax.swing.JLabel" binding="message">
             <constraints/>
             <properties>
-              <alignmentX value="0.0"/>
+              <alignmentX value="1.0"/>
               <font size="24"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
@@ -33,15 +33,15 @@
           </component>
         </children>
       </grid>
-      <grid id="83393" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="1">
-        <constraints border-constraint="Center"/>
+      <grid id="83393" layout-manager="FlowLayout" hgap="0" vgap="10" flow-align="1">
+        <constraints border-constraint="South"/>
         <properties/>
         <border type="none"/>
         <children>
           <component id="904c2" class="javax.swing.JButton" binding="okButton">
             <constraints/>
             <properties>
-              <alignmentX value="0.0"/>
+              <alignmentX value="1.0"/>
               <horizontalTextPosition value="0"/>
               <text value="OK"/>
             </properties>
