@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.PhoneForm">
+  <grid id="27dc6" binding="rootPanel" custom-create="true" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="515" height="507"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="fe178" class="javax.swing.JButton" binding="okButton" custom-create="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.5"/>
+        </constraints>
+        <properties>
+          <font size="24"/>
+          <foreground color="-1"/>
+          <maximumSize width="210" height="40"/>
+          <minimumSize width="210" height="40"/>
+          <preferredSize width="210" height="40"/>
+          <text value="ПРОДОЛЖИТЬ"/>
+        </properties>
+      </component>
+      <grid id="62143" binding="logoPanel" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.5"/>
+        </constraints>
+        <properties>
+          <minimumSize width="180" height="180"/>
+          <preferredSize width="180" height="180"/>
+        </properties>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <component id="3fe4" class="javax.swing.JTextPane" binding="hintTextPane">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="2" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.2"/>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <focusable value="false"/>
+          <font size="24"/>
+          <foreground color="-1"/>
+          <inheritsPopupMenu value="true"/>
+          <maximumSize width="400" height="80"/>
+          <minimumSize width="400" height="80"/>
+          <opaque value="false"/>
+          <preferredSize width="400" height="80"/>
+          <text value="Введите код страны и номер Вашего мобильного телефона"/>
+        </properties>
+      </component>
+      <grid id="63474" binding="phonePanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.3"/>
+        </constraints>
+        <properties>
+          <minimumSize width="350" height="50"/>
+          <opaque value="false"/>
+          <preferredSize width="350" height="50"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="16906" binding="phoneIcon" custom-create="true" layout-manager="GridBagLayout">
+            <constraints/>
+            <properties>
+              <minimumSize width="25" height="25"/>
+              <opaque value="false"/>
+              <preferredSize width="25" height="25"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <component id="544c7" class="javax.swing.JFormattedTextField" binding="phone">
+            <constraints/>
+            <properties>
+              <caretColor color="-1"/>
+              <disabledTextColor color="-1"/>
+              <font size="32"/>
+              <foreground color="-1"/>
+              <maximumSize width="270" height="30"/>
+              <minimumSize width="270" height="30"/>
+              <opaque value="false"/>
+              <preferredSize width="270" height="30"/>
+              <text value="+7 "/>
+            </properties>
+          </component>
+          <component id="d17fe" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-1"/>
+              <minimumSize width="320" height="2"/>
+              <opaque value="true"/>
+              <orientation value="0"/>
+              <preferredSize width="320" height="2"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

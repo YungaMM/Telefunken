@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.MainForm">
+  <grid id="27dc6" binding="rootPanel" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="800" height="400"/>
+    </constraints>
+    <properties>
+      <minimumSize width="800" height="70"/>
+      <preferredSize width="800" height="70"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="68149" binding="titlePanel" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="2">
+        <constraints border-constraint="North"/>
+        <properties>
+          <maximumSize width="2147483647" height="70"/>
+          <minimumSize width="0" height="70"/>
+          <preferredSize width="0" height="70"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="1d958" class="javax.swing.JButton" binding="gearButton">
+            <constraints/>
+            <properties>
+              <maximumSize width="60" height="60"/>
+              <minimumSize width="60" height="60"/>
+              <opaque value="false"/>
+              <preferredSize width="60" height="60"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="db6c7" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="65e1f" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="e3294" binding="buddyPanel" custom-create="true" layout-manager="FlowLayout" hgap="0" vgap="0" flow-align="2">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <background color="-1"/>
+                  <maximumSize width="30" height="30"/>
+                  <minimumSize width="30" height="30"/>
+                  <preferredSize width="30" height="30"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="c114b" class="javax.swing.JButton" binding="buddyEditButton">
+                    <constraints/>
+                    <properties>
+                      <maximumSize width="30" height="30"/>
+                      <minimumSize width="30" height="30"/>
+                      <opaque value="false"/>
+                      <preferredSize width="30" height="30"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="602bb" binding="messagesPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+          <grid id="d2b9a" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="South"/>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <scrollpane id="1c0f7" binding="messageTextScrollPane">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <minimumSize width="17" height="80"/>
+                  <preferredSize width="17" height="80"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="87240" class="javax.swing.JTextArea" binding="messageTextArea">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="792e" class="javax.swing.JButton" binding="sendMessageButton">
+                <constraints border-constraint="East"/>
+                <properties>
+                  <maximumSize width="80" height="80"/>
+                  <minimumSize width="80" height="80"/>
+                  <opaque value="false"/>
+                  <preferredSize width="80" height="80"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="d697e" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="West"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="3485f" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <maximumSize width="400" height="2147483647"/>
+              <minimumSize width="400" height="0"/>
+              <preferredSize width="400" height="0"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="92ccc" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="98f85" binding="searchIconPanel" custom-create="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <background color="-1"/>
+                      <maximumSize width="30" height="30"/>
+                      <minimumSize width="30" height="30"/>
+                      <preferredSize width="30" height="30"/>
+                    </properties>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                  <component id="ccc5" class="javax.swing.JTextField" binding="searchTextField" custom-create="true">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                  </component>
+                </children>
+              </grid>
+              <grid id="612df" binding="contactsPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
